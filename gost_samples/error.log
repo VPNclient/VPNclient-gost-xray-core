@@ -1,0 +1,5 @@
+2025/07/07 19:16:11.475536 [Info] transport/internet/tcp: listening TCP on 0.0.0.0:443
+2025/07/07 19:16:11.477516 [Warning] core: Xray 25.6.8 started
+2025/07/07 19:29:08.491197 [Info] transport/internet/tcp: listening TCP on 0.0.0.0:8443
+2025/07/07 19:29:08.492645 [Warning] core: Xray 25.6.8 started
+2025/07/07 19:29:14.003903 [Info] [577331891] app/proxyman/inbound: connection ends > proxy/gless/encoding: failed to read header > EOF

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package xray.proxy.gmess.inbound;
+option csharp_namespace = "Xray.Proxy.Gmess.Inbound";
+option go_package = "github.com/xtls/xray-core/proxy/gmess/inbound";
+option java_package = "com.xray.proxy.gmess.inbound";
+option java_multiple_files = true;
+
+import "common/protocol/user.proto";
+
+message DetourConfig {
+  string to = 1;
+}
+
+message DefaultConfig {
+  uint32 level = 2;
+}
+
+message Config {
+  repeated xray.common.protocol.User user = 1;
+  DefaultConfig default = 2;
+  DetourConfig detour = 3;
+} 

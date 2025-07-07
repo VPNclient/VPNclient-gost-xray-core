@@ -1,0 +1,61 @@
+{
+  "log": {
+    "loglevel": "info"
+  },
+  "inbounds": [
+    {
+      "port": 1080,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true
+      },
+      "tag": "socks-inbound"
+    },
+    {
+      "port": 1081,
+      "protocol": "http",
+      "settings": {},
+      "tag": "http-inbound"
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "gless",
+      "settings": {
+        "vnext": [
+          {
+            "address": "127.0.0.1",
+            "port": 8443,
+            "users": [
+              {
+                "id": "66ad4540-b58c-4ad2-9926-ea63445a9b57",
+                "flow": "gost-rprx-vision",
+                "encryption": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "localhost",
+          "allowInsecure": true
+        }
+      },
+      "tag": "gless-outbound"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "network": "tcp,udp",
+        "outboundTag": "gless-outbound"
+      }
+    ]
+  }
+} 

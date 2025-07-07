@@ -1,0 +1,70 @@
+{
+  "log": {
+    "loglevel": "info"
+  },
+  "inbounds": [
+    {
+      "port": 1080,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true
+      },
+      "tag": "socks-inbound"
+    },
+    {
+      "port": 1081,
+      "protocol": "http",
+      "settings": {},
+      "tag": "http-inbound"
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "gmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "your-server-ip",
+            "port": 444,
+            "users": [
+              {
+                "id": "77be4540-b58c-4ad2-9926-ea63445a9b58",
+                "security": "gost-28147",
+                "experiments": ""
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "your-domain.com",
+          "allowInsecure": false
+        }
+      },
+      "tag": "gmess-outbound"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:category-ads-all"
+        ],
+        "outboundTag": "blocked"
+      }
+    ]
+  }
+} 

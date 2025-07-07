@@ -1,0 +1,78 @@
+{
+  "log": {
+    "loglevel": "info",
+    "access": "access.log",
+    "error": "error.log"
+  },
+  "inbounds": [
+    {
+      "port": 8443,
+      "protocol": "gless",
+      "settings": {
+        "clients": [
+          {
+            "id": "66ad4540-b58c-4ad2-9926-ea63445a9b57",
+            "flow": "gost-rprx-vision"
+          }
+        ],
+        "decryption": "none",
+        "fallbacks": [
+          {
+            "name": "fallback",
+            "alpn": "h2",
+            "path": "/",
+            "dest": "127.0.0.1:80",
+            "xver": 1
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificateFile": "cert.pem",
+              "keyFile": "key.pem"
+            }
+          ]
+        }
+      },
+      "tag": "gless-inbound"
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "direct"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "network": "tcp,udp",
+        "outboundTag": "direct"
+      }
+    ]
+  },
+  "policy": {
+    "levels": {
+      "0": {
+        "handshake": 4,
+        "connIdle": 300,
+        "uplinkOnly": 2,
+        "downlinkOnly": 5,
+        "statsUserUplink": false,
+        "statsUserDownlink": false,
+        "bufferSize": 10240
+      }
+    },
+    "system": {
+      "statsInboundUplink": false,
+      "statsInboundDownlink": false
+    }
+  }
+} 

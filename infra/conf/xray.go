@@ -28,6 +28,8 @@ var (
 		"socks":         func() interface{} { return new(SocksServerConfig) },
 		"vless":         func() interface{} { return new(VLessInboundConfig) },
 		"vmess":         func() interface{} { return new(VMessInboundConfig) },
+		"gless":         func() interface{} { return new(GLessInboundConfig) },
+		"gmess":         func() interface{} { return new(GMessInboundConfig) },
 		"trojan":        func() interface{} { return new(TrojanServerConfig) },
 		"wireguard":     func() interface{} { return &WireGuardConfig{IsClient: false} },
 	}, "protocol", "settings")
@@ -41,6 +43,8 @@ var (
 		"socks":       func() interface{} { return new(SocksClientConfig) },
 		"vless":       func() interface{} { return new(VLessOutboundConfig) },
 		"vmess":       func() interface{} { return new(VMessOutboundConfig) },
+		"gless":       func() interface{} { return new(GLessOutboundConfig) },
+		"gmess":       func() interface{} { return new(GMessOutboundConfig) },
 		"trojan":      func() interface{} { return new(TrojanClientConfig) },
 		"dns":         func() interface{} { return new(DNSOutboundConfig) },
 		"wireguard":   func() interface{} { return &WireGuardConfig{IsClient: true} },
